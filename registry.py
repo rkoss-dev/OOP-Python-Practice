@@ -29,10 +29,12 @@ def get_student_by_email(email: str):
     """Retrieves a student safely, returning None (or a message) if not found."""
     return student_dict.get(email, "Student not found in the system.")
 
+# --- Create 3 students ---
 student1 = Student("Megan Harry", "mh@example.com")
 student2 = Student("Robert Harry", "rh@example.com")
 student3 = Student("Andrew Harry", "ah@example.com")
 
+# --- Give those 3 students grades ---
 student1.add_grade(76)
 student1.add_grade(82)
 student1.add_grade(74)
@@ -51,6 +53,7 @@ student3.add_grade(88)
 student3.add_grade(93)
 student3.add_grade(98)
 
+# Display student info and print a break before the next part
 student1.display_info()
 print()
 student2.display_info()
@@ -58,13 +61,14 @@ print()
 student3.display_info()
 print("---------------------------------")
 
-
+# Create dictionary that ties email to student info
 student_dict = {
     student1.email: student1,
     student2.email: student2,
     student3.email: student3
 }
 
+# Use a set to find unique grades (it ignores duplicates)
 unique_grades = set()
 for student in student_dict.values():
     unique_grades.update(student.grades)
@@ -89,18 +93,20 @@ except TypeError as error:
 # Verify the original list in the object is untouched
 print(f"\nStudent's actual grades list remains: {student1.grades}")
 
-# --- Executing the Tasks ---
+# --- Show initial state for comparison ---
 print("--- Initial State ---")
 for student in student_dict.values():
     print(f"{student.name}: {student.grades}")
 
+# --- Remove each student's last grade ---
 print("\n--- 1. Popping the Last Grade ---")
 for student in student_dict.values():
-    # It is good practice to ensure the list isn't empty before popping!
+    # Checking to make sure list isn't empty
     if student.grades: 
         popped_grade = student.grades.pop()
         print(f"Removed {popped_grade} from {student.name}'s list.")
 
+# --- Print first and last grades ---
 print("\n--- 2. First and Last Grades ---")
 for student in student_dict.values():
     if student.grades:
@@ -108,6 +114,7 @@ for student in student_dict.values():
         last = student.grades[-1]
         print(f"{student.name} -> First Grade: {first} | Last Grade: {last}")
 
+# --- Print total number of grades ---
 print("\n--- 3. Total Number of Grades ---")
 for student in student_dict.values():
     count = len(student.grades)
